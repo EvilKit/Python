@@ -89,14 +89,15 @@ HANGMAN = (
 )
 MAX_WRONG = len(HANGMAN)-1
 WORDS = ["OVER", "CLAM","SNOW","PYTHON","EGG","CAKE","CORE"]
-word = random.choice(WORDS)
-so_far = "-"*len(word) #набор дефисов, по одному на каждую букву
-wrong = 0#Ошибки, допушеные игрокам(кол-во)
-used=[]#буквы, которые игрок уже предлагал
+
 
 print("Добро пожаловать в игру 'Висельница'. Удачи вам!")
 choise = None
 while choise != "0":
+	word = random.choice(WORDS)
+	so_far = "-"*len(word) #набор дефисов, по одному на каждую букву
+	wrong = 0#Ошибки, допушеные игрокам(кол-во)
+	used=[]#буквы, которые игрок уже предлагал
 	print(
 	"""
 	\tОпции:
@@ -159,4 +160,4 @@ while choise != "0":
 		else:
 			print("\nВы отгадали!")
 		print("\nБыло загадано слово", word)
-		
+		input("\nНажмите Enter, чтобы выйти.")
