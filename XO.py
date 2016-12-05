@@ -1,42 +1,32 @@
-
 '''
 Немного о функциях:
 display _iпstruct() - Выводит инструкцию для игрока
-
 ask_yes_пo(questioп) - задает вопрос, ответом на который может быть «Да» или «Нет». Принимает текст вопроса, возвращает ''у" или "п"
-
 ask_пumЬer(questioп, low,high() - Просит ввести число из указанного диапазона. Принимает текст
 вопроса, нижнюю (low) и верхнюю (high) границы диапазона.
 Возвращает целое число не меньше low и не больше high
-
 pieces() - Определяет принадлежность первого хода человеку или ком-
 пьютеру. Возвращает типы фишек соответственно компьютера и человека
-
 пew_Ьoard() - Создает пустую игровую досху. Возвращает эту доску
-
 display _Ьoard(board) - Отображает игровую доску на экране. Принимает эту доску
-
 legal_moves(Ьoard) - Создает список доступных ходов. Принимает доску. Возвращает
 список доступных ходов
-
 wiпner(board) - Определяет победителя игры. Принимает доску. Возвращает тип
 фишек победителя: "Ничья• или None
-
 humaп_move(Ьoard, humaп) - Узнает, какой ход жеnает совершить игрок. Принимает доску
 и тип фишек человека. Возвращает ход человека
-
 computer _move(Ьoard, computer, human) Рассчитывает ход компьютерного противника. Принимает доску, тип фишек компьютера и тип фишек человека. Возвращает ход
 компьютера
-
 пext_tum(turп) - Осуществляет переход к следующему ходу. Принимает тип фи-
 шек. Возвращает тип фишек
-
 coпgrat_wiппer(the_winпer, computer, human) - Поздравляет победителя или констатирует ничью. Принимает
 тип фишек победителя, тип фишек компьютера и тип фишек человека
 '''
 #--------Код--------
 
 #Глобальные Константы
+RESPONCES_YES =["yes", "y", "да", "yeah", "agree", "ok"]
+RESPONCES_NO =["no", "n", "нет", "nope","never"]
 X = "X"
 O = "O"
 EMPTY = " "
@@ -48,9 +38,7 @@ def display_instruct():
     print(
     """
 Добро пожаловать на ринг грандиознейших интеллектуальных состязаний всех времен
-
 Твой мозг и мой процессор сойдутся в схватке за доской игры "Крестики-нолики"
-
 Чтобы сделать ход. введи число от О до 8. Числа однозначно соответствуют полям
 доски - так. как показано ниже:
 \t 0 | 1 | 2
@@ -58,15 +46,13 @@ def display_instruct():
 \t 3 | 4 | 5
 \t---------
 \t 6 | 7 | 8
-
 Приготовься к бою. жалкий белковый человечишка. Вот-вот начнется решающее сра­жение.
     """)
-
-def ask_yes_no(question):
-    response = None
-    while response not in ("y","n"):
-        response = input(question).lower()
-    return response
+def ask(question):
+    responce = None
+    while responce not in RESPONCES_YES and responce not in RESPONCES_NO:
+        responce = input(question).lower()
+    return responce
 
 def ask_number(question,low,heigh):#просит ввести число из диапазона
     response = None
@@ -74,15 +60,9 @@ def ask_number(question,low,heigh):#просит ввести число из д
         response = int(input(question))
     return response
 
-def ask_try_again(question):
-    response = None
-    while response not in ("y","n"):
-        response = input(question).lower()
-    return response
-
 def pieces():#определяет кому достанется первый ход
-    go_first = ask_yes_no("Хочешь ходить первым?(y,n): ")
-    if go_first == "y":
+    go_first = ask("Хочешь ходить первым?(y,n): ")
+    if go_first in RESPONCES_YES:
          print("Ладно, даю тебе фору: играй крестиками.")
          human = X
          computer = O
@@ -207,8 +187,8 @@ def main():
         turn = next_turn(turn)
     the_winner = winner(board)
     congrat_winner(the_winner, computer, human)
-    wonna_play = ask_try_again("Хотите начать заново? (y, n): ")
-    if wonna_play == 'y':
+    wonna_play = ask("Хотите начать заново? (y, n): ")
+    if wonna_play in RESPONCES_YES:
         main()
     else:
         print("Удачи")
